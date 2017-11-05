@@ -31,7 +31,7 @@ const gameMenuTemplate = [
 //Startup of the application.
 app.on('ready', function(){
   //Make the window.
-  GameWindow = new BrowserWindow({})
+  GameWindow = new BrowserWindow({fullscreen: true})
 
   //Load in the HTML file
   GameWindow.loadURL(url.format({
@@ -62,4 +62,5 @@ app.on('ready', function(){
 const gameMenu = Menu.buildFromTemplate(gameMenuTemplate);
 Menu.setApplicationMenu(gameMenu);
 
+GameWindow.setFullScreen(true);
 })
