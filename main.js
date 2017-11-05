@@ -2,13 +2,12 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
-const $ = require('jQuery');
 
 //Initiate required variables from electron.
 const {app, BrowserWindow, Menu, shell} = electron;
 
 //Initiate the game window.
-let GameWindow;
+let titleWindow;
 
 //Initalize the game windows menu bar.
 const gameMenuTemplate = [
@@ -27,8 +26,8 @@ const gameMenuTemplate = [
       {
         label: 'Title Page',
         click(){
-          GameWindow.loadURL(url.format({
-            pathname: path.join(__dirname, 'html/gameWindow.html'),
+          titleWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'html/titleWindow.html'),
             protocol: 'file:',
             slashes: true
           }));
@@ -42,11 +41,11 @@ const gameMenuTemplate = [
 //Startup of the application.
 app.on('ready', function(){
   //Make the window.
-  GameWindow = new BrowserWindow({fullscreen: true})
+  titleWindow = new BrowserWindow({fullscreen: true})
 
   //Load in the HTML file
-  GameWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'html/gameWindow.html'),
+  titleWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'html/titleWindow.html'),
     protocol: 'file:',
     slashes: true
   }));
