@@ -1,4 +1,6 @@
-//Get loading screen images
+//Get loading screen content
+var clock = document.getEleementById('loadingClock');
+
 
 
 //Get tile images

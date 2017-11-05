@@ -61,6 +61,4 @@ app.on('ready', function(){
 //Setup menu
 const gameMenu = Menu.buildFromTemplate(gameMenuTemplate);
 Menu.setApplicationMenu(gameMenu);
-
-GameWindow.setFullScreen(true);
 })
