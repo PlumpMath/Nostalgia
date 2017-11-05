@@ -35,7 +35,7 @@ app.on('ready', function(){
 
   //Load in the HTML file
   GameWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'html/gameWindow.htm'),
+    pathname: path.join(__dirname, 'html/gameWindow.html'),
     protocol: 'file:',
     slashes: true
   }))
