@@ -2,9 +2,10 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
+const $ = require('jQuery');
 
 //Initiate required variables from electron.
-const {app, BrowserWindow, Menu} = electron;
+const {app, BrowserWindow, Menu, shell} = electron;
 
 //Initiate the game window.
 let GameWindow;
@@ -22,6 +23,16 @@ const gameMenuTemplate = [
         click(){
           app.exit();
         }
+      },
+      {
+        label: 'Title Page',
+        click(){
+          GameWindow.loadURL(url.format({
+            pathname: path.join(__dirname, 'html/gameWindow.html'),
+            protocol: 'file:',
+            slashes: true
+          }));
+        }
       }
     ]
   }
@@ -38,7 +49,7 @@ app.on('ready', function(){
     pathname: path.join(__dirname, 'html/gameWindow.html'),
     protocol: 'file:',
     slashes: true
-  }))
+  }));
 
   //Setup menu for darwin
   if (process.platform === 'darwin') {
