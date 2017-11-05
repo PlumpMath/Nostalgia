@@ -1,10 +1,10 @@
 {
-  "name": "nostalgia",
+  "name": "Nostalgia",
   "version": "1.0.0",
   "description": "A game for the Game Off competition",
   "main": "main.js",
   "scripts": {
-    "test": "start"
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
