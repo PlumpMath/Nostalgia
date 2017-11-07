@@ -1,10 +1,14 @@
+body{
+  background-color: black;
+}
 #game{
   border: 0px;
   margin: 0px;
   padding: 0px;
-  width: 100%;
-  height: 100%;
+}
+#player{
+  border: 0px;
+  margin: 0px;
+  padding: 0px;
   position: absolute;
-  left: 0px;
-  top: 0px;
 }
