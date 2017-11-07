@@ -14,7 +14,7 @@ var level1 = [
   [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ];
 
-var tileSize = 16;
+var tileSize = 10;
 
 var grass = new Image();
 var dirt = new Image();
