@@ -1,26 +1,39 @@
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 
-var level1 = [[1,2,3], [2,3,1]];
+var level1 = [
+  [1,1,3,3,2,2,2,2,2,2,2,2,3,3,1,1,1,1,1],
+  [1,1,3,3,2,2,2,2,2,2,2,2,3,3,1,1,1,1,1],
+  [1,3,3,2,2,2,2,2,2,2,2,2,3,3,1,1,1,1,1],
+  [1,3,3,2,2,2,2,2,2,2,2,2,3,3,1,1,1,1,1],
+  [1,3,3,2,2,2,2,2,2,2,2,2,3,3,1,1,1,1,1],
+  [1,3,3,2,2,2,2,2,2,3,3,3,3,3,1,1,1,1,1],
+  [1,1,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1],
+  [1,1,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+];
 
 var tileSize = 16;
 
 var grass = new Image();
-grass.src = "../../images/tiles/grass.png";
-
 var dirt = new Image();
-dirt.src = "../../images/tiles/dirt.png";
-
 var sand = new Image();
-sand.onload = drawLevel(level1);
-sand.src = "../../images/tiles/sand.png";
+grass.onload = function () {
+    dirt.onload = function () {
+        sand.onload = drawLevel.bind(this, level1);
+        sand.src = "../../images/tiles/sand.png";
+    }
+    dirt.src = "../../images/tiles/dirt.png";
+}
+grass.src = "../../images/tiles/grass.png";
 
 function drawLevel(level){
   var drawX = 0;
   var drawY = 0;
 
   for(var i=0;level.length>i;i++){
-    var row = level1[i];
+    var row = level[i];
     for(var i2=0;row.length>i2;i2++){
       var tile = row[i2];
       var tileImage;
