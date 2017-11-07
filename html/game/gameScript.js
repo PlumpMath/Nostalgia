@@ -14,6 +14,20 @@ var level1 = [
   [1,1,3,3,3,3,3,3,3,3,3,3,3,3,1,1,1,1,1],
   [1,1,3,3,3,3,3,3,3,3,3,1,1,1,1,1,1,1,1],
   [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
   [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 ];
 
@@ -22,9 +36,13 @@ var tileSize = 50;
 var grass = new Image();
 var dirt = new Image();
 var sand = new Image();
+var player = new Image();
 grass.onload = function () {
     dirt.onload = function () {
-        sand.onload = setup.bind(this);
+        sand.onload = function() {
+          player.onload = setup.bind(this);
+          player.src="../../images/game/player.png";
+        }
         sand.src = "../../images/tiles/sand.png";
     }
     dirt.src = "../../images/tiles/dirt.png";
@@ -34,18 +52,19 @@ grass.src = "../../images/tiles/grass.png";
 function setup(){
   window.addEventListener("keypress", function(e) {
     if(e.keyCode==39){
-      playerX+=speed;
-    }else if(e.keyCode==37){
       playerX-=speed;
+    }else if(e.keyCode==37){
+      playerX+=speed;
     }else if(e.keyCode==38){
-      playerY-=speed;
-    }else if(e.keyCode==40){
       playerY+=speed;
+    }else if(e.keyCode==40){
+      playerY-=speed;
     }
   }, false);
 
   window.setInterval(function() {
     drawLevel(level1);
+    context.drawImage(player, 500, 300, tileSize + 200, tileSize + 200);
   }, 10);
 }
 function drawLevel(level){
