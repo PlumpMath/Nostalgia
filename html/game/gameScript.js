@@ -26,7 +26,7 @@ grass.onload = function () {
 grass.src = "../../images/tiles/grass.png";
 
 function setup(){
-  window.addEventListener("keypress", function(e) {
+  body.onkeypress = function(e) {
     if(e.keyCode==39){
       playerX-=speed;
     }else if(e.keyCode==37){
@@ -36,7 +36,7 @@ function setup(){
     }else if(e.keyCode==40){
       playerY-=speed;
     }
-  }, false);
+  }
 
   window.setInterval(function() {
     drawLevel(level1);
