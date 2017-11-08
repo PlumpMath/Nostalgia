@@ -26,17 +26,25 @@ grass.onload = function () {
 grass.src = "../../images/tiles/grass.png";
 
 function setup(){
-  document.addEventListener("keypress", function(e) {
-    if(e.keyCode==39){
-      playerX-=speed;
-    }else if(e.keyCode==37){
-      playerX+=speed;
-    }else if(e.keyCode==38){
-      playerY+=speed;
-    }else if(e.keyCode==40){
-      playerY-=speed;
-    }
-  }, false);
+  $(document.documentElement)
+    .keypress(function(evt) {
+        if ($.data(this, '_lastKeyEvent') != 'keydown') {
+          if(e.keyCode==39){
+            playerX-=speed;
+          }else if(e.keyCode==37){
+            playerX+=speed;
+          }else if(e.keyCode==38){
+            playerY+=speed;
+          }else if(e.keyCode==40){
+            playerY-=speed;
+          }
+        }
+        $.data(this, '_lastKeyEvent', 'keypress');
+    })
+    .keydown(function(evt) {
+        moveItem.call(this, evt);
+        $.data(this, '_lastKeyEvent', 'keydown');
+    });
 
   window.setInterval(function() {
     drawLevel(level1);
