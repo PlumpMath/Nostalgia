@@ -1,5 +1,3 @@
-var body = document.querySelector('body');
-
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 
@@ -28,7 +26,7 @@ grass.onload = function () {
 grass.src = "../../images/tiles/grass.png";
 
 function setup(){
-  body.onkeypress = function(e) {
+  document.addEventListener("keypress", function(e) {
     if(e.keyCode==39){
       playerX-=speed;
     }else if(e.keyCode==37){
@@ -38,7 +36,7 @@ function setup(){
     }else if(e.keyCode==40){
       playerY-=speed;
     }
-  }
+  }, false);
 
   window.setInterval(function() {
     drawLevel(level1);
