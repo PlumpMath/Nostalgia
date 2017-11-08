@@ -26,26 +26,28 @@ grass.onload = function () {
 grass.src = "../../images/tiles/grass.png";
 
 function setup(){
-  $(document.documentElement)
-    .keypress(function(evt) {
-        if ($.data(this, '_lastKeyEvent') != 'keydown') {
-          if(e.keyCode==39){
-            playerX-=speed;
-          }else if(e.keyCode==37){
-            playerX+=speed;
-          }else if(e.keyCode==38){
-            playerY+=speed;
-          }else if(e.keyCode==40){
-            playerY-=speed;
-          }
-        }
-        $.data(this, '_lastKeyEvent', 'keypress');
-    })
-    .keydown(function(evt) {
-        moveItem.call(this, evt);
-        $.data(this, '_lastKeyEvent', 'keydown');
-    });
-
+  document.onkeydown = function(e) {
+    if(e.keyCode==39){
+      playerX-=speed;
+    }else if(e.keyCode==37){
+      playerX+=speed;
+    }else if(e.keyCode==38){
+      playerY+=speed;
+    }else if(e.keyCode==40){
+      playerY-=speed;
+    }
+  }
+    window.onkeydown = function(e) {
+      if(e.keyCode==39){
+        playerX-=speed;
+      }else if(e.keyCode==37){
+        playerX+=speed;
+      }else if(e.keyCode==38){
+        playerY+=speed;
+      }else if(e.keyCode==40){
+        playerY-=speed;
+      }
+    }
   window.setInterval(function() {
     drawLevel(level1);
     context.drawImage(player, 500, 300, tileSize + 200, tileSize + 200);
