@@ -17,13 +17,13 @@ grass.onload = function () {
     dirt.onload = function () {
         sand.onload = function() {
           player.onload = setup.bind(this);
-          player.src="../../images/game/player.png";
+          player.src="images/game/player.png";
         }
-        sand.src = "../../images/tiles/sand.png";
+        sand.src = "images/tiles/sand.png";
     }
-    dirt.src = "../../images/tiles/dirt.png";
+    dirt.src = "images/tiles/dirt.png";
 }
-grass.src = "../../images/tiles/grass.png";
+grass.src = "images/tiles/grass.png";
 
 function setup(){
   document.onkeydown = function(e) {
