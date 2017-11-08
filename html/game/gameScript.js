@@ -1,3 +1,5 @@
+var body = document.querySelector('body');
+
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 
