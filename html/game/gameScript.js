@@ -37,17 +37,6 @@ function setup(){
       playerY-=speed;
     }
   }
-    window.onkeydown = function(e) {
-      if(e.keyCode==39){
-        playerX-=speed;
-      }else if(e.keyCode==37){
-        playerX+=speed;
-      }else if(e.keyCode==38){
-        playerY+=speed;
-      }else if(e.keyCode==40){
-        playerY-=speed;
-      }
-    }
   window.setInterval(function() {
     drawLevel(level1);
     context.drawImage(player, 500, 300, tileSize + 200, tileSize + 200);
