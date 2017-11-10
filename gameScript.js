@@ -65,14 +65,14 @@ function setup(){
         }
       }
       if(KEYS[38]){
-        if(obstacles[playerY-1][playerX+1]!=0){
+        if(obstacles[playerY-1][playerX]!=0){
           //?
         }else{
           playerY-=speed
         }
       }
       if(KEYS[40]){
-        if(obstacles[playerY+1][playerX+1]!=0){
+        if(obstacles[playerY+1][playerX]!=0){
           //?
         }else{
           playerY+=speed
