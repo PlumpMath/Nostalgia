@@ -16,16 +16,21 @@ var speed = 1;
 var tileSize = 50;
 
 var level1Tiles = getLevel1Tilemap();
+var obstacles = getLevel1Obstacles();
 
 var grass = new Image();
 var dirt = new Image();
 var sand = new Image();
 var playerFront = new Image();
+var brick = new Image();
 grass.onload = function () {
     dirt.onload = function () {
         sand.onload = function() {
-          playerFront.onload = setup.bind(this);
-          playerFront.src="images/game/player_front.png";
+          playerFront.onload = function(){
+            brick.onload = setup.bind(this);
+            brick.src = "images/tiles/brick.png";
+          }
+          playerFront.src = "images/game/player_front.png";
         }
         sand.src = "images/tiles/sand.png";
     }
@@ -38,7 +43,6 @@ function setup(){
   //setup level 1 location
   playerX = getLevel1StartX();
   playerY = getLevel1StartY();
-  var obstacles = getLevel1Obstacles();
   var KEYS = [];
    document.onkeydown = function(e) {
        KEYS[e.keyCode] = true;
@@ -49,6 +53,7 @@ function setup(){
    }
   window.setInterval(function() {
     drawTiles(level1Tiles);
+    drawObstacles(obstacles);
     if(timeout == 25){
       if(KEYS[39]){
         if(obstacles[playerY][playerX+1]!=0){
@@ -108,6 +113,30 @@ function drawTiles(level){
         }
         if(tile!=0){
         context.drawImage(tileImage, drawX, drawY, tileSize, tileSize);
+        }
+
+        drawX += tileSize;
+      }
+    drawX = 500 - (playerX*50);
+    drawY += tileSize;
+  }
+}
+
+
+function drawObstacles(level){
+  var drawX = 500 - (playerX*50);
+  var drawY = 300 - (playerY*50) + 50;
+
+  for(var i=0;level.length>i;i++){
+    var row = level[i];
+      for(var i2=0;row.length>i2;i2++){
+        var obstacle = row[i2];
+        var obstacleImage;
+        if(obstacle==1){
+          obstacleImage = brick;
+        }
+        if(obstacle!=0){
+        context.drawImage(obstacleImage, drawX, drawY, tileSize, tileSize);
         }
 
         drawX += tileSize;
