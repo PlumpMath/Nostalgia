@@ -51,7 +51,7 @@ function setup(){
     drawTiles(level1Tiles);
     if(timeout == 25){
       if(KEYS[39]){
-        if(obstacles[playerY][playerX]!=0){
+        if(obstacles[playerY][playerX+1]!=0){
           //?
         }else{
           playerX+=speed
