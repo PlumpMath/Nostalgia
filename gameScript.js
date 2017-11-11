@@ -12,37 +12,25 @@ var context = canvas.getContext('2d');
 var playerX = 0;
 var playerY = 0;
 
+var levelTiles;
+var levelObstacles;
+var levelMisc;
+var levelInteractions;
+
 var speed = 1;
 var tileSize = 50;
 
-var level1Tiles = getLevel1Tilemap();
-var obstacles = getLevel1Obstacles();
+var timeout = 0;
+var timeoutUsed = 0;
 
-var grass = new Image();
-var dirt = new Image();
-var sand = new Image();
-var playerFront = new Image();
-var brick = new Image();
-grass.onload = function () {
-    dirt.onload = function () {
-        sand.onload = function() {
-          playerFront.onload = function(){
-            brick.onload = setup.bind(this);
-            brick.src = "images/tiles/brick.png";
-          }
-          playerFront.src = "images/game/player_front.png";
-        }
-        sand.src = "images/tiles/sand.png";
-    }
-    dirt.src = "images/tiles/dirt.png";
-}
-grass.src = "images/tiles/grass.png";
-
-function setup(){
-  var timeout = 0;
-  //setup level 1 location
+function setup() {
   playerX = getLevel1StartX();
   playerY = getLevel1StartY();
+  levelTiles = getLevel1Tilemap();
+  levelObstacles = getLevel1Obstacles();
+  levelMisc = getLevel1Misc();
+  levelInteractions = getLevel1Interactions();
+
   var KEYS = [];
    document.onkeydown = function(e) {
        KEYS[e.keyCode] = true;
@@ -52,48 +40,65 @@ function setup(){
        KEYS[e.keyCode] = false;
    }
   window.setInterval(function() {
-    drawTiles(level1Tiles);
-    drawObstacles(obstacles);
-    if(timeout == 25){
-      if(KEYS[39]){
-        if(obstacles[playerY][playerX+1]!=0){
-          //?
-        }else{
-          playerX+=speed
-        }
-      }
-      if(KEYS[37]){
-        if(obstacles[playerY][playerX-1]!=0){
-          //?
-        }else{
-          playerX-=speed
-        }
-      }
-      if(KEYS[38]){
-        if(obstacles[playerY-1][playerX]!=0){
-          //?
-        }else{
-          playerY-=speed
-        }
-      }
-      if(KEYS[40]){
-        if(obstacles[playerY+1][playerX]!=0){
-          //?
-        }else{
-          playerY+=speed
-        }
-      }
-      timeout = 0;
-    }else{
-      timeout++;
-    }
+    updatePlayer(KEYS);
+    drawTiles(levelTiles);
+    drawObstacles(levelObstacles);
+    drawMisc(levelMisc);
+    drawInteractions(levelInteractions);
     context.drawImage(playerFront, 500, 300, 50, 100);
   }, 10);
+
 }
 
+function updatePlayer(keys){
+  if(timeout==25){
+    //up
+    if(keys[38]||keys[87]){
+      if(levelObstacles[playerY-1][playerX]==0){
+        if(levelInteractions[playerY-1][playerX]==0){
+          playerY-=speed;
+          timeoutUsed=1;
+        }
+      }
+    }
+    //down
+    if(keys[40]||keys[83]){
+      if(levelObstacles[playerY+1][playerX]==0){
+        if(levelInteractions[playerY+1][playerX]==0){
+          playerY+=speed;
+          timeoutUsed=1;
+        }
+      }
+    }
+    //right
+    if(keys[39]||keys[68]){
+      if(levelObstacles[playerY][playerX+1]==0){
+        if(levelInteractions[playerY][playerX+1]==0){
+          playerX+=speed;
+          timeoutUsed=1;
+        }
+      }
+    }
+    //left
+    if(keys[37]||keys[65]){
+      if(levelObstacles[playerY][playerX-1]==0){
+        if(levelInteractions[playerY][playerX-1]==0){
+          playerX-=speed;
+          timeoutUsed=1;
+        }
+      }
+    }
+    if(timeoutUsed==1){
+      timeout=0;
+      timeoutUsed=0;
+    }
+  }else{
+    timeout++;
+  }
+}
 
 function drawTiles(level){
-  context.clearRect(0, 0, canvas.width, canvas.height);
+  context.clearRect(0, 0, canvas.width, canvas.height)
   var drawX = 500 - (playerX*50);
   var drawY = 300 - (playerY*50) + 50;
 
@@ -122,7 +127,6 @@ function drawTiles(level){
   }
 }
 
-
 function drawObstacles(level){
   var drawX = 500 - (playerX*50);
   var drawY = 300 - (playerY*50) + 50;
@@ -137,6 +141,55 @@ function drawObstacles(level){
         }
         if(obstacle!=0){
         context.drawImage(obstacleImage, drawX, drawY, tileSize, tileSize);
+        }
+
+        drawX += tileSize;
+      }
+    drawX = 500 - (playerX*50);
+    drawY += tileSize;
+  }
+}
+
+function drawMisc(level){
+  var drawX = 500 - (playerX*50);
+  var drawY = 300 - (playerY*50) + 50;
+
+  for(var i=0;level.length>i;i++){
+    var row = level[i];
+      for(var i2=0;row.length>i2;i2++){
+        var misc = row[i2];
+        var miscImage;
+        if(misc==1){
+          miscImage = controls_1;
+        }
+        if(misc==2){
+          miscImage = controls_2;
+        }
+        if(misc!=0){
+        context.drawImage(miscImage, drawX, drawY, tileSize, tileSize);
+        }
+
+        drawX += tileSize;
+      }
+    drawX = 500 - (playerX*50);
+    drawY += tileSize;
+  }
+}
+
+function drawInteractions(level){
+  var drawX = 500 - (playerX*50);
+  var drawY = 300 - (playerY*50) + 50;
+
+  for(var i=0;level.length>i;i++){
+    var row = level[i];
+      for(var i2=0;row.length>i2;i2++){
+        var interaction = row[i2];
+        var interactionImage;
+        if(interaction==1){
+          interactionImage = machine;
+        }
+        if(interaction!=0){
+        context.drawImage(interactionImage, drawX, drawY, tileSize, tileSize);
         }
 
         drawX += tileSize;
