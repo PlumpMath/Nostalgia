@@ -9,8 +9,9 @@ var controls_down = new Image();
 var controls_left = new Image();
 var controls_right = new Image();
 var machine_broken = new Image();
+var openable_wall = new Image();
 
-
+openable_wall.src = "images/tiles/openable_wall.png";
 controls_right.src = "images/tiles/right_arrow.png";
 controls_left.src = "images/tiles/left_arrow.png";
 machine_broken.src = "images/tiles/machine.png";

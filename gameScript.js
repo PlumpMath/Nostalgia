@@ -142,6 +142,9 @@ function drawObstacles(level){
         if(obstacle==1){
           obstacleImage = wall;
         }
+        if(obstacle==2){
+          obstacleImage = openable_wall;
+        }
         if(obstacle!=0){
         context.drawImage(obstacleImage, drawX, drawY, tileSize, tileSize);
         }
