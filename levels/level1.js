@@ -124,12 +124,17 @@ function onLevel1Interact(playerx, playery, playerItem, interactx, interacty, cu
         var rumble = new Audio('sound/effects/rumble.mp3');
         rumble.addEventListener('ended', function() {
           setObstacles(currentObstacles);
-          this.stop();
         }, false);
         rumble.play();
       }else{
         setInfo(1);
       }
     }
+  }
+}
+
+function onLevel1pickupItem(playerx, playery, playerItem, pickupx, pickupy, currentTilemap, currentObstacles, currentItems, currentMisc, currentInteractions){
+  if(pickupx == 13 && pickupy == 1){
+    setInfo(2);
   }
 }

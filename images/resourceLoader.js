@@ -40,5 +40,7 @@ var itemslot_wrench = new Image();
 itemslot_wrench.src = "images/UI/itemslot_wrench.png";
 //info
 var special_tool_needed = new Image();
-special_tool_needed.onload = setup.bind(this);
 special_tool_needed.src = "images/UI/special_tool_needed.png";
+var fix_machine = new Image();
+fix_machine.onload = setup.bind(this);
+fix_machine.src = "images/UI/info_fix_machine.png";

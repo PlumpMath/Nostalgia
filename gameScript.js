@@ -38,6 +38,7 @@ function setup() {
   levelMisc = getLevel1Misc();
   levelInteractions = getLevel1Interactions();
   levelItems = getLevel1Items();
+  levelInfo = 0;
 
   var KEYS = [];
    document.onkeydown = function(e) {
@@ -56,7 +57,7 @@ function setup() {
     drawItems(levelItems);
     context.drawImage(playerFront, 500, 300, 50, 100);
     drawItemslots();
-    drawInfo(levelInfo);
+    drawInfo();
   }, 10);
 
 }
@@ -90,9 +91,10 @@ function updatePlayer(keys){
     if(keys[38]||keys[87]){
       if(levelObstacles[playerY-1][playerX]==0){
         if(levelInteractions[playerY-1][playerX]==0){
-          if(level1Items[playerY-1][playerX]!=0){
+          if(levelItems[playerY-1][playerX]!=0){
             playerItem = levelItems[playerY-1][playerX];
-            levelItems = levelItems[playerY-1][playerX] = 0;
+            levelItems[playerY-1][playerX] = 0;
+            passPickupItemEvent(playerX, playerY-1);
           }
           playerY-=speed;
           timeoutUsed=1;
@@ -105,9 +107,10 @@ function updatePlayer(keys){
     if(keys[40]||keys[83]){
       if(levelObstacles[playerY+1][playerX]==0){
         if(levelInteractions[playerY+1][playerX]==0){
-          if(level1Items[playerY+1][playerX]!=0){
+          if(levelItems[playerY+1][playerX]!=0){
             playerItem = levelItems[playerY+1][playerX];
-            levelItems = levelItems[playerY+1][playerX] = 0;
+            levelItems[playerY+1][playerX] = 0;
+            passPickupItemEvent(playerX, playerY+1);
           }
           playerY+=speed;
           timeoutUsed=1;
@@ -120,9 +123,10 @@ function updatePlayer(keys){
     if(keys[39]||keys[68]){
       if(levelObstacles[playerY][playerX+1]==0){
         if(levelInteractions[playerY][playerX+1]==0){
-          if(level1Items[playerY][playerX+1]!=0){
+          if(levelItems[playerY][playerX+1]!=0){
             playerItem = levelItems[playerY][playerX+1];
-            levelItems = levelItems[playerY][playerX+1] = 0;
+            levelItems[playerY][playerX+1] = 0;
+            passPickupItemEvent(playerX+1, playerY);
           }
           playerX+=speed;
           timeoutUsed=1;
@@ -135,9 +139,10 @@ function updatePlayer(keys){
     if(keys[37]||keys[65]){
       if(levelObstacles[playerY][playerX-1]==0){
         if(levelInteractions[playerY][playerX-1]==0){
-          if(level1Items[playerY][playerX-1]!=0){
+          if(levelItems[playerY][playerX-1]!=0){
             playerItem = levelItems[playerY][playerX-1];
-            levelItems = levelItems[playerY][playerX-1] = 0;
+            levelItems[playerY][playerX-1] = 0;
+            passPickupItemEvent(playerX-1, playerY);
           }
           playerX-=speed;
           timeoutUsed=1;
@@ -310,17 +315,22 @@ function passInteractEvent(interacty, interactx){
   }
 }
 
-function passPickupItemEvent() {
-
+function passPickupItemEvent(pickupX, pickupY) {
+  if(level == 1){
+    onLevel1pickupItem(playerX, playerY, playerItem, pickupX, pickupY, levelTiles, levelObstacles, levelItems, levelMisc, levelInteractions);
+  }
 }
 
-function drawInfo(levelInfo){
+function drawInfo(){
   if(infoTimer==1000){
     levelInfo = 0;
   }else{
     infoTimer++;
     if(levelInfo==1){
       var infoImage = special_tool_needed;
+    }
+    if(levelInfo==2){
+      var infoImage = fix_machine;
     }
     if(levelInfo!=0){
       context.drawImage(infoImage, (canvas.width/2)-250, canvas.height-110, 500, 100);
