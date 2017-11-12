@@ -18,7 +18,9 @@ var wrench = new Image();
 wrench.src = "images/items/wrench.png";
 //interactions
 var machine_broken = new Image();
-machine_broken.src = "images/tiles/machine.png";
+machine_broken.src = "images/tiles/broken_machine.png";
+var machine_fixed = new Image();
+machine_fixed.src = "images/tiles/fixed_machine.png";
 //player
 var playerFront = new Image();
 playerFront.src = "images/game/player_front.png";

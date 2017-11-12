@@ -113,14 +113,22 @@ function getLevel1Items(){
   return level1Items;
 }
 
-function onLevel1Interact(playerx, playery, playerItem, interactx, interacty, currentTilemap, currentObstacles, currentItems, currentMisc){
-  if(interactx==8 && interacty ==  8){
-    if(playerItem==1){
-      currentObstacles[10][7] = 0;
-      setObstacles(currentObstacles);
-      setPlayerItem(0);
-    }else{
-      setInfo(1);
+function onLevel1Interact(playerx, playery, playerItem, interactx, interacty, currentTilemap, currentObstacles, currentItems, currentMisc, currentInteractions){
+  if(interactx==8 && interacty==8){
+    if(currentInteractions[8][8]==1){
+      if(playerItem==1){
+        currentObstacles[10][7] = 0;
+        currentInteractions[8][8] = 2;
+        var rumble = new Audio('sound/effects/rumble.mp3');
+        rumble.addEventListener('ended', function() {
+          setObstacles(currentObstacles);
+          setInteractions(currentInteractions);
+          setPlayerItem(0);
+        }, false);
+        rumble.play();
+      }else{
+        setInfo(1);
+      }
     }
   }
 }
