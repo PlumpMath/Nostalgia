@@ -11,12 +11,17 @@ var context = canvas.getContext('2d');
 
 var playerX = 0;
 var playerY = 0;
+var playerItem = 0;
 
 var levelTiles;
 var levelObstacles;
 var levelMisc;
 var levelInteractions;
 var levelItems;
+var levelInfo;
+var level;
+
+var infoTimer = 0;
 
 var speed = 1;
 var tileSize = 50;
@@ -25,6 +30,7 @@ var timeout = 0;
 var timeoutUsed = 0;
 
 function setup() {
+  level = 1;
   playerX = getLevel1StartX();
   playerY = getLevel1StartY();
   levelTiles = getLevel1Tilemap();
@@ -49,8 +55,32 @@ function setup() {
     drawInteractions(levelInteractions);
     drawItems(levelItems);
     context.drawImage(playerFront, 500, 300, 50, 100);
+    drawItemslots();
+    drawInfo(levelInfo);
   }, 10);
 
+}
+
+function setTilemap(level){
+  levelTiles = level;
+}
+function setObstacles(level){
+  levelObstacles = level;
+}
+function setMisc(level){
+  levelMisc = level;
+}
+function setInteractions(level){
+  levelInteractions = level;
+}
+function setItems(level){
+  levelItems = level;
+}
+function setPlayerItem(item){
+  playerItem = item;
+}
+function setInfo(info){
+  levelInfo = info;
 }
 
 function updatePlayer(keys){
@@ -59,8 +89,14 @@ function updatePlayer(keys){
     if(keys[38]||keys[87]){
       if(levelObstacles[playerY-1][playerX]==0){
         if(levelInteractions[playerY-1][playerX]==0){
+          if(level1Items[playerY-1][playerX]!=0){
+            playerItem = levelItems[playerY-1][playerX];
+            levelItems = levelItems[playerY-1][playerX] = 0;
+          }
           playerY-=speed;
           timeoutUsed=1;
+        }else{
+          passInteractEvent(playerY-1, playerX);
         }
       }
     }
@@ -68,8 +104,14 @@ function updatePlayer(keys){
     if(keys[40]||keys[83]){
       if(levelObstacles[playerY+1][playerX]==0){
         if(levelInteractions[playerY+1][playerX]==0){
+          if(level1Items[playerY+1][playerX]!=0){
+            playerItem = levelItems[playerY+1][playerX];
+            levelItems = levelItems[playerY+1][playerX] = 0;
+          }
           playerY+=speed;
           timeoutUsed=1;
+        }else{
+          passInteractEvent(playerY+1, playerX);
         }
       }
     }
@@ -77,8 +119,14 @@ function updatePlayer(keys){
     if(keys[39]||keys[68]){
       if(levelObstacles[playerY][playerX+1]==0){
         if(levelInteractions[playerY][playerX+1]==0){
+          if(level1Items[playerY][playerX+1]!=0){
+            playerItem = levelItems[playerY][playerX+1];
+            levelItems = levelItems[playerY][playerX+1] = 0;
+          }
           playerX+=speed;
           timeoutUsed=1;
+        }else{
+          passInteractEvent(playerY, playerX+1);
         }
       }
     }
@@ -86,8 +134,14 @@ function updatePlayer(keys){
     if(keys[37]||keys[65]){
       if(levelObstacles[playerY][playerX-1]==0){
         if(levelInteractions[playerY][playerX-1]==0){
+          if(level1Items[playerY][playerX-1]!=0){
+            playerItem = levelItems[playerY][playerX-1];
+            levelItems = levelItems[playerY][playerX-1] = 0;
+          }
           playerX-=speed;
           timeoutUsed=1;
+        }else{
+          passInteractEvent(playerY, playerX-1);
         }
       }
     }
@@ -118,6 +172,9 @@ function drawTiles(level){
         }
         if(tile==3){
           tileImage = sand;
+        }
+        if(tile==4){
+          tileImage = dark_dirt;
         }
         if(tile!=0){
         context.drawImage(tileImage, drawX, drawY, tileSize, tileSize);
@@ -220,6 +277,9 @@ function drawItems(level){
       for(var i2=0;row.length>i2;i2++){
         var item = row[i2];
         var itemImage;
+        if(item==1){
+          itemImage = wrench;
+        }
         if(item!=0){
         context.drawImage(itemImage, drawX, drawY, tileSize, tileSize);
         }
@@ -228,5 +288,32 @@ function drawItems(level){
       }
     drawX = 500 - (playerX*50);
     drawY += tileSize;
+  }
+}
+
+function drawItemslots(){
+  if(playerItem==0){
+    context.drawImage(itemslot_empty, 0, 0, 55, 55);
+  }
+  if(playerItem==1){
+    context.drawImage(itemslot_wrench, 0, 0, 55, 55);
+  }
+}
+
+function passInteractEvent(interactx, interacty){
+  if(level == 1){
+    onLevel1Interact(playerX, playerY, playerItem, interactx, interacty, levelTiles, levelObstacles, levelItems, level1Misc);
+  }
+}
+
+function drawInfo(levelInfo){
+  if(infoTimer==1000){
+    levelInfo = 0;
+  }else{
+    infoTimer++;
+    if(levelInfo==1){
+      var infoImage = special_tool_needed;
+    }
+    context.drawImage(infoImage, (canvas.width/2)-250, canvas.height-110, 500, 100);
   }
 }
