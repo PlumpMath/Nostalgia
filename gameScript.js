@@ -81,6 +81,7 @@ function setPlayerItem(item){
 }
 function setInfo(info){
   levelInfo = info;
+  infoTimer = 0;
 }
 
 function updatePlayer(keys){
@@ -303,7 +304,7 @@ function drawItemslots(){
   }
 }
 
-function passInteractEvent(interactx, interacty){
+function passInteractEvent(interacty, interactx){
   if(level == 1){
     onLevel1Interact(playerX, playerY, playerItem, interactx, interacty, levelTiles, levelObstacles, levelItems, levelMisc, levelInteractions);
   }
@@ -317,6 +318,8 @@ function drawInfo(levelInfo){
     if(levelInfo==1){
       var infoImage = special_tool_needed;
     }
-    context.drawImage(infoImage, (canvas.width/2)-250, canvas.height-110, 500, 100);
+    if(levelInfo!=0){
+      context.drawImage(infoImage, (canvas.width/2)-250, canvas.height-110, 500, 100);
+    }
   }
 }

@@ -36,7 +36,7 @@ var level1Obstacles = [
 
 var level1Misc = [
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,3,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -119,11 +119,12 @@ function onLevel1Interact(playerx, playery, playerItem, interactx, interacty, cu
       if(playerItem==1){
         currentObstacles[10][7] = 0;
         currentInteractions[8][8] = 2;
+        setPlayerItem(0);
+        setInteractions(currentInteractions);
         var rumble = new Audio('sound/effects/rumble.mp3');
         rumble.addEventListener('ended', function() {
           setObstacles(currentObstacles);
-          setInteractions(currentInteractions);
-          setPlayerItem(0);
+          this.stop();
         }, false);
         rumble.play();
       }else{
