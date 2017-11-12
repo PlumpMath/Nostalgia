@@ -1,9 +1,9 @@
-var gameAudio = new Audio('sound/game.m4a');
-gameAudio.addEventListener('ended', function() {
-    this.currentTime = 0;
-    this.play();
-}, false);
-gameAudio.play();
+// var gameAudio = new Audio('sound/game.m4a');
+// gameAudio.addEventListener('ended', function() {
+//     this.currentTime = 0;
+//     this.play();
+// }, false);
+// gameAudio.play();
 
 
 var canvas = document.getElementById('game');
@@ -308,6 +308,10 @@ function passInteractEvent(interacty, interactx){
   if(level == 1){
     onLevel1Interact(playerX, playerY, playerItem, interactx, interacty, levelTiles, levelObstacles, levelItems, levelMisc, levelInteractions);
   }
+}
+
+function passPickupItemEvent() {
+
 }
 
 function drawInfo(levelInfo){
