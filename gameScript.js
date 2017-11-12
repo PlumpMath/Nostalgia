@@ -5,6 +5,7 @@
 // }, false);
 // gameAudio.play();
 
+var levelRuning = false;
 
 var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
@@ -30,16 +31,15 @@ var timeout = 0;
 var timeoutUsed = 0;
 
 function setup() {
-  level = 1;
-  playerX = getLevel1StartX();
-  playerY = getLevel1StartY();
-  levelTiles = getLevel1Tilemap();
-  levelObstacles = getLevel1Obstacles();
-  levelMisc = getLevel1Misc();
-  levelInteractions = getLevel1Interactions();
-  levelItems = getLevel1Items();
-  levelInfo = 0;
-
+  if (typeof(Storage) !== "undefined") {
+    if(localStorage.getItem("level")==undefined){
+      localStorage.setItem("level", 1);
+    }
+  }else{
+  console.log("level will NOT be saved!");
+  }
+  level = localStorage.getItem("level");
+  setupLevel(level);
   var KEYS = [];
    document.onkeydown = function(e) {
        KEYS[e.keyCode] = true;
@@ -49,15 +49,17 @@ function setup() {
        KEYS[e.keyCode] = false;
    }
   window.setInterval(function() {
-    updatePlayer(KEYS);
-    drawTiles(levelTiles);
-    drawObstacles(levelObstacles);
-    drawMisc(levelMisc);
-    drawInteractions(levelInteractions);
-    drawItems(levelItems);
-    context.drawImage(playerFront, 500, 300, 50, 100);
-    drawItemslots();
-    drawInfo();
+    if(levelRuning){
+      updatePlayer(KEYS);
+      drawTiles(levelTiles);
+      drawObstacles(levelObstacles);
+      drawMisc(levelMisc);
+      drawInteractions(levelInteractions);
+      drawItems(levelItems);
+      context.drawImage(playerFront, 500, 300, 50, 100);
+      drawItemslots();
+      drawInfo();
+    }
   }, 10);
 
 }
@@ -335,5 +337,19 @@ function drawInfo(){
     if(levelInfo!=0){
       context.drawImage(infoImage, (canvas.width/2)-250, canvas.height-110, 500, 100);
     }
+  }
+}
+
+function setupLevel(level) {
+  if(level==1){
+    playerX = getLevel1StartX();
+    playerY = getLevel1StartY();
+    levelTiles = getLevel1Tilemap();
+    levelObstacles = getLevel1Obstacles();
+    levelMisc = getLevel1Misc();
+    levelInteractions = getLevel1Interactions();
+    levelItems = getLevel1Items();
+    levelInfo = 0;
+    levelRuning = true;
   }
 }
