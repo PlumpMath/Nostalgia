@@ -76,7 +76,7 @@ var level1Items = [
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,2,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
   [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -117,14 +117,13 @@ function onLevel1Interact(playerx, playery, playerItem, interactx, interacty, cu
   if(interactx==8 && interacty==8){
     if(currentInteractions[8][8]==1){
       if(playerItem==1){
+        setInfo(3);
         currentObstacles[10][7] = 0;
         currentInteractions[8][8] = 2;
         setPlayerItem(0);
         setInteractions(currentInteractions);
+        setObstacles(currentObstacles);
         var rumble = new Audio('sound/effects/rumble.mp3');
-        rumble.addEventListener('ended', function() {
-          setObstacles(currentObstacles);
-        }, false);
         rumble.play();
       }else{
         setInfo(1);
@@ -136,5 +135,9 @@ function onLevel1Interact(playerx, playery, playerItem, interactx, interacty, cu
 function onLevel1pickupItem(playerx, playery, playerItem, pickupx, pickupy, currentTilemap, currentObstacles, currentItems, currentMisc, currentInteractions){
   if(pickupx == 13 && pickupy == 1){
     setInfo(2);
+  }
+  if(playerItem==2){
+    setupLevel(2);
+    localStorage.setItem("level", 2);
   }
 }

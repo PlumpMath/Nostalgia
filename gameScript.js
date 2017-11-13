@@ -291,6 +291,9 @@ function drawItems(level){
         if(item==1){
           itemImage = wrench;
         }
+        if(item==2){
+          itemImage = clock;
+        }
         if(item!=0){
         context.drawImage(itemImage, drawX, drawY, tileSize, tileSize);
         }
@@ -327,6 +330,7 @@ function drawInfo(){
   if(infoTimer==1000){
     levelInfo = 0;
   }else{
+    console.log(levelInfo);
     infoTimer++;
     if(levelInfo==1){
       var infoImage = special_tool_needed;
@@ -334,7 +338,7 @@ function drawInfo(){
     if(levelInfo==2){
       var infoImage = fix_machine;
     }
-    if(levelInfo!=0){
+    if(levelInfo!=0 && levelInfo!=3){
       context.drawImage(infoImage, (canvas.width/2)-250, canvas.height-110, 500, 100);
     }
   }
@@ -350,6 +354,19 @@ function setupLevel(level) {
     levelInteractions = getLevel1Interactions();
     levelItems = getLevel1Items();
     levelInfo = 0;
+    player = 0;
+    levelRuning = true;
+  }
+  if(level==2){
+    playerX = getLevel2StartX();
+    playerY = getLevel2StartY();
+    levelTiles = getLevel2Tilemap();
+    levelObstacles = getLevel2Obstacles();
+    levelMisc = getLevel2Misc();
+    levelInteractions = getLevel2Interactions();
+    levelItems = getLevel2Items();
+    levelInfo = 0;
+    player = 0;
     levelRuning = true;
   }
 }

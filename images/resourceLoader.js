@@ -16,6 +16,8 @@ openable_wall.src = "images/tiles/openable_wall.png";
 //items
 var wrench = new Image();
 wrench.src = "images/items/wrench.png";
+var clock = new Image();
+clock.src = "images/items/clock_item.png";
 //interactions
 var machine_broken = new Image();
 machine_broken.src = "images/tiles/broken_machine.png";
