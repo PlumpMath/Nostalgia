@@ -1,5 +1,5 @@
 body{
-  background-color: black;
+  background-color: #000;
 }
 #game{
   border: 0px;
@@ -10,4 +10,18 @@ body{
   top: 0px;
   width: 100%;
   height: 100%;
+}
+
+.levelSelect{
+  margin: 100px;
+  width: 50px;
+  height: 30px;
+  background-color: #375869;
+  border: black 10px;
+}
+
+.levelSelect#row1{
+  position: absolute;
+  top: 100px;
+  left: 20%;
 }
