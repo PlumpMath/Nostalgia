@@ -13,15 +13,18 @@ public class Pixel {
 	static ArrayList<ArrayList<Integer>> level = new ArrayList<ArrayList<Integer>>();
 	static ArrayList<Integer> row = new ArrayList<Integer>();
    
-   static public void main(String[] args) throws IOException
-   {
-	   
-		BufferedImage colors = ImageIO.read(new File("/Users/coding.../github/Nostalgia/colors.png"));
-		BufferedImage image = ImageIO.read(new File("/Users/coding.../github/Nostalgia/colors.png"));
-		Color grass = new Color(colors.getRGB(0, 0));
-		Color dark_dirt = new Color(colors.getRGB(1, 0));
-		Color dirt = new Color(colors.getRGB(2, 0));
-		Color sand = new Color(colors.getRGB(3, 0));
+   static public void main(String[] args) throws IOException{
+		BufferedImage tiles = ImageIO.read(new File(new File(System.getProperty("java.class.path")).getParentFile() + "/tile_colors.png"));
+		BufferedImage obstacles = ImageIO.read(new File(new File(System.getProperty("java.class.path")).getParentFile() + "/obstacle_colors.png"));
+		BufferedImage misc = ImageIO.read(new File(new File(System.getProperty("java.class.path")).getParentFile() + "/misc_colors.png"));
+		BufferedImage interactions = ImageIO.read(new File(new File(System.getProperty("java.class.path")).getParentFile() + "/interaction_colors.png"));
+		BufferedImage items = ImageIO.read(new File(new File(System.getProperty("java.class.path")).getParentFile() + "/item_colors.png"));
+		
+		BufferedImage image = ImageIO.read(new File("/Users/coding.../github/Nostalgia/tiles.png"));
+		Color grass = new Color(tiles.getRGB(0, 0));
+		Color dark_dirt = new Color(tiles.getRGB(1, 0));
+		Color dirt = new Color(tiles.getRGB(2, 0));
+		Color sand = new Color(tiles.getRGB(3, 0));
 		
 			image = ImageIO.read(new File("/Users/coding.../github/Nostalgia/level.png"));
 		for(Integer i=0;i<image.getHeight();i++) {
@@ -38,13 +41,11 @@ public class Pixel {
 					row.add(4);
 				}else {
 					row.add(0);
-					System.out.print(currentColor.getRed() + ", " + currentColor.getGreen() + ", " + currentColor.getBlue() + "\n");
-					System.out.print(grass.getRed() + ", " + grass.getGreen() + ", " + grass.getBlue() + "\n");
 				}
 			}
 			level.add(row);
 		}
-		System.out.print(level + ";");
+		System.out.print("tiles\n" + level + ";");
 		
    }
 }
