@@ -123,8 +123,6 @@ function onLevel1Interact(playerx, playery, playerItem, interactx, interacty, cu
         setPlayerItem(0);
         setInteractions(currentInteractions);
         setObstacles(currentObstacles);
-        var rumble = new Audio('sound/effects/rumble.mp3');
-        rumble.play();
       }else{
         setInfo(1);
       }

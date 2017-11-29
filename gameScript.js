@@ -43,12 +43,19 @@ function setup() {
   var KEYS = [];
    document.onkeydown = function(e) {
        KEYS[e.keyCode] = true;
+       if(KEYS[82]){
+         setupLevel(1);
+         setInfo(0);
+       }
    }
 
    document.onkeyup = function(e) {
        KEYS[e.keyCode] = false;
    }
   window.setInterval(function() {
+    if(level==2){
+      setInfo(4);
+    }
     if(levelRuning){
       updatePlayer(KEYS);
       drawTiles(levelTiles);
@@ -338,14 +345,19 @@ function drawInfo(){
     if(levelInfo==2){
       var infoImage = fix_machine;
     }
+    if(levelInfo==4){
+      var infoImage=restart;
+    }
     if(levelInfo!=0 && levelInfo!=3){
       context.drawImage(infoImage, (canvas.width/2)-250, canvas.height-110, 500, 100);
     }
   }
 }
 
-function setupLevel(level) {
-  if(level==1){
+function setupLevel(levelSetup) {
+  if(levelSetup==1){
+    level=1;
+    localStorage.setItem("level", 1);
     playerX = getLevel1StartX();
     playerY = getLevel1StartY();
     levelTiles = getLevel1Tilemap();
@@ -357,7 +369,9 @@ function setupLevel(level) {
     player = 0;
     levelRuning = true;
   }
-  if(level==2){
+  if(levelSetup==2){
+    level=2;
+    localStorage.setItem("level", 2);
     playerX = getLevel2StartX();
     playerY = getLevel2StartY();
     levelTiles = getLevel2Tilemap();
