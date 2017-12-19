@@ -1,9 +1,9 @@
-// var gameAudio = new Audio('sound/game.m4a');
-// gameAudio.addEventListener('ended', function() {
-//     this.currentTime = 0;
-//     this.play();
-// }, false);
-// gameAudio.play();
+var gameAudio = new Audio('sound/game.m4a');
+gameAudio.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+}, false);
+gameAudio.play();
 
 var levelRuning = false;
 
